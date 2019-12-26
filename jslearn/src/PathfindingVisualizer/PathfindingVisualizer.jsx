@@ -9,8 +9,8 @@ const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
 
 export default class PathfindingVisualizer extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       grid: [],
       mouseIsPressed: false
@@ -20,11 +20,12 @@ export default class PathfindingVisualizer extends Component {
   componentDidMount() {
     const grid = getInitialGrid();
     this.setState({ grid });
+    console.log("HI");
   }
 
   handleMouseDown(row, col) {
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
-    this.setState({ grid });
+    this.setState({ grid: newGrid, mouseIsPressed: true });
   }
 
   handleMouseEnter(row, col) {
@@ -47,7 +48,7 @@ export default class PathfindingVisualizer extends Component {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById("node-${node.row}-${node.col}").className =
+        document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
       }, 10 * i);
     }
@@ -57,7 +58,7 @@ export default class PathfindingVisualizer extends Component {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        document.getElementById("node-${node.row}-${node.col}").className =
+        document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
       }, 50 * i);
     }
@@ -81,13 +82,13 @@ export default class PathfindingVisualizer extends Component {
           Visualize Dijkstra's Algorithm
         </button>
         <div className="grid">
-          {grid.map((row, rowIDx) => {
+          {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
                   const { row, col, isFinsh, isStart, isWall } = node;
                   return (
-                    <node
+                    <Node
                       key={nodeIdx}
                       col={col}
                       isFinsh={isFinsh}
@@ -100,7 +101,7 @@ export default class PathfindingVisualizer extends Component {
                       }
                       onMouseUp={() => this.handleMouseUp()}
                       row={row}
-                    ></node>
+                    ></Node>
                   );
                 })}
               </div>
