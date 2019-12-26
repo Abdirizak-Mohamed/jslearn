@@ -31,7 +31,7 @@ function App() {
          <ListGroup.Item variant="light">Light</ListGroup.Item>
          <ListGroup.Item variant="dark">Dark</ListGroup.Item>
         </ListGroup>
-       </Col>
+        </Col>
         <Col sm={8}>sm=4</Col>
        </Row>
        </Container>
