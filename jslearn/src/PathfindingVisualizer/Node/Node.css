@@ -1,7 +1,7 @@
 .node {
   width: 25px;
   height: 25px;
-  outline: 1pc SOLID RGB(175, 216, 248);
+  outline: 1px solid rgb(175, 216, 248);
   display: inline-block;
 }
 
@@ -39,6 +39,7 @@
     transform: scale(1.2);
     background-color: rgba(0, 217, 159, 0.75);
   }
+
   100% {
     transform: scale(1);
     background-color: rgba(0, 190, 218, 0.75);
@@ -67,8 +68,10 @@
   }
 
   50% {
+    transform: scale(1.2);
     background-color: rgb(255, 254, 106);
   }
+
   100% {
     transform: scale(1);
     background-color: rgb(255, 254, 106);

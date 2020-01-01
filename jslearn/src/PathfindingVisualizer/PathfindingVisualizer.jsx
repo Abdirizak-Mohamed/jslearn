@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
+
 import "./PathfindingVisualizer.css";
 
 const START_NODE_ROW = 10;
@@ -20,7 +21,6 @@ export default class PathfindingVisualizer extends Component {
   componentDidMount() {
     const grid = getInitialGrid();
     this.setState({ grid });
-    console.log("HI");
   }
 
   handleMouseDown(row, col) {
@@ -78,7 +78,7 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <button onClick={() => this.visualizeDijkstra}>
+        <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
         <div className="grid">
@@ -86,12 +86,12 @@ export default class PathfindingVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { row, col, isFinsh, isStart, isWall } = node;
+                  const { row, col, isFinish, isStart, isWall } = node;
                   return (
                     <Node
                       key={nodeIdx}
                       col={col}
-                      isFinsh={isFinsh}
+                      isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
                       mouseIsPressed={mouseIsPressed}
@@ -112,7 +112,6 @@ export default class PathfindingVisualizer extends Component {
     );
   }
 }
-
 const getInitialGrid = () => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
@@ -124,7 +123,6 @@ const getInitialGrid = () => {
   }
   return grid;
 };
-
 const createNode = (col, row) => {
   return {
     col,
@@ -137,7 +135,6 @@ const createNode = (col, row) => {
     previousNode: null
   };
 };
-
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
