@@ -4,7 +4,9 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 class NavBar extends Component {
-  state = {};
+  state = {
+    onVisualizeDijkstra: false
+  };
   render() {
     return (
       <Navbar bg="light" expand="lg">
@@ -13,10 +15,16 @@ class NavBar extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <NavDropdown title="Algorithms" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <NavDropdown title="Visualise Algorithms" id="basic-nav-dropdown">
+              <NavDropdown.Item
+                className="VisualizeDijkstras"
+                onClick={this.props.onVisualizeDijkstra}
+              >
+                Visualize Dijkstra's Algorithm
+              </NavDropdown.Item>{" "}
+              {/*onClick={this.props.onVisualizeDijkstra}*/}
               <NavDropdown.Item href="#action/3.2">
-                Another action
+                Breadth-First Search
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />

@@ -11,11 +11,12 @@ const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
 
 export default class PathfindingVisualizer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       grid: [],
-      mouseIsPressed: false
+      mouseIsPressed: false,
+      onVisualizeDijkstra: this.props.onVisualizeDijkstra
     };
   }
 
@@ -65,24 +66,30 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  visualizeDijkstra() {
+  visualizeDijkstra = () => {
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-  }
+  };
+
+  /*visualizeDijkstra() {
+    console.log("visualize Dijkstras", this.props.onVisualizeDijkstra);
+  }*/
 
   render() {
     const { grid, mouseIsPressed } = this.state;
 
     return (
       <>
-        <NavBar />
+        <NavBar onVisualizeDijkstra={() => this.visualizeDijkstra()} />
+        {/* 
+        onVisualizeDijkstra={this.visualizeDijkstra()}
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
-        </button>
+        </button> */}
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
