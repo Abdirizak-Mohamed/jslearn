@@ -86,6 +86,7 @@ export default class PathfindingVisualizer extends Component {
       const node = nodes[i];
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node";
+      this.checkIsWall(node);
     }
     console.log(nodes[0]);
 
@@ -93,6 +94,12 @@ export default class PathfindingVisualizer extends Component {
         "node node-shortest-path";*/
 
     this.setState({ grid });
+  };
+
+  checkIsWall = node => {
+    if (node.isWall === true) {
+      return node.isWall === false;
+    }
   };
 
   getAllNodes = grid => {
@@ -148,6 +155,7 @@ export default class PathfindingVisualizer extends Component {
     );
   }
 }
+
 const getInitialGrid = () => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
