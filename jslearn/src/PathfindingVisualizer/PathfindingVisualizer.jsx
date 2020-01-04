@@ -15,10 +15,11 @@ export default class PathfindingVisualizer extends Component {
     super(props);
     this.state = {
       grid: [],
-      mouseIsPressed: false,
-      onVisualizeDijkstra: this.props.onVisualizeDijkstra
+      mouseIsPressed: false
     };
   }
+
+  third = React.createRef();
 
   componentDidMount() {
     const grid = getInitialGrid();
@@ -66,7 +67,7 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  visualizeDijkstra = () => {
+  handleVisualizeDijkstra = () => {
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
@@ -75,21 +76,44 @@ export default class PathfindingVisualizer extends Component {
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   };
 
-  /*visualizeDijkstra() {
-    console.log("visualize Dijkstras", this.props.onVisualizeDijkstra);
-  }*/
+  handleReset = () => {
+    const { grid } = this.state;
+    const nodes = this.getAllNodes(grid);
+    console.log(nodes[0]);
+
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      document.getElementById(`node-${node.row}-${node.col}`).className =
+        "node";
+    }
+    console.log(nodes[0]);
+
+    /*document.getElementById(`node-${node.row}-${node.col}`).className =
+        "node node-shortest-path";*/
+
+    this.setState({ grid });
+  };
+
+  getAllNodes = grid => {
+    const nodes = [];
+    for (const row of grid) {
+      for (const node of row) {
+        nodes.push(node);
+      }
+    }
+    return nodes;
+  };
 
   render() {
     const { grid, mouseIsPressed } = this.state;
 
     return (
       <>
-        <NavBar onVisualizeDijkstra={() => this.visualizeDijkstra()} />
-        {/* 
-        onVisualizeDijkstra={this.visualizeDijkstra()}
-        <button onClick={() => this.visualizeDijkstra()}>
-          Visualize Dijkstra's Algorithm
-        </button> */}
+        <NavBar
+          onVisualizeDijkstra={() => this.handleVisualizeDijkstra()}
+          onReset={() => this.handleReset()}
+        />
+
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
@@ -125,7 +149,7 @@ const getInitialGrid = () => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
-    for (let col = 0; col < 50; col++) {
+    for (let col = 0; col < 55; col++) {
       currentRow.push(createNode(col, row));
     }
     grid.push(currentRow);

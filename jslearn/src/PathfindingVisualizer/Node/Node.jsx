@@ -12,10 +12,13 @@ export default class Node extends Component {
       onMouseDown,
       onMouseEnter,
       onMouseUp,
+      isReset,
       row
     } = this.props;
     const extraClassName = isFinish
       ? "node-finish"
+      : isReset
+      ? "node-reset"
       : isStart
       ? "node-start"
       : isWall
