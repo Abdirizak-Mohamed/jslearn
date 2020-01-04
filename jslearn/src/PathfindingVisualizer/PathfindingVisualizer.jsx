@@ -13,17 +13,18 @@ const FINISH_NODE_COL = 35;
 export default class PathfindingVisualizer extends Component {
   constructor(props) {
     super(props);
+    this.isVisiteds = React.createRef();
     this.state = {
       grid: [],
       mouseIsPressed: false
     };
   }
 
-  third = React.createRef();
-
   componentDidMount() {
     const grid = getInitialGrid();
     this.setState({ grid });
+    console.log("2");
+    const collection = grid;
   }
 
   handleMouseDown(row, col) {
@@ -105,6 +106,7 @@ export default class PathfindingVisualizer extends Component {
   };
 
   render() {
+    console.log("1");
     const { grid, mouseIsPressed } = this.state;
 
     return (
@@ -122,6 +124,7 @@ export default class PathfindingVisualizer extends Component {
                   const { row, col, isFinish, isStart, isWall } = node;
                   return (
                     <Node
+                      ref={this.isVisiteds}
                       key={nodeIdx}
                       col={col}
                       isFinish={isFinish}
