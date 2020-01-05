@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
 import NavBar from "./navbar/navbar";
-import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
+import {
+  dijkstra,
+  getNodesInShortestPathOrder,
+  getAllNodes
+} from "../algorithms/dijkstra";
 
 import "./PathfindingVisualizer.css";
 
@@ -78,31 +82,27 @@ export default class PathfindingVisualizer extends Component {
   };
 
   handleReset = () => {
-    const { grid } = this.state;
-    const nodes = this.getAllNodes(grid);
-    console.log(nodes[0]);
+    const newGrid = getInitialGrid();
+    const nodes = getAllNodes(newGrid);
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
-      document.getElementById(`node-${node.row}-${node.col}`).className =
-        "node";
-      this.checkIsWall(node);
+      if (node.isStart) {
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-start";
+      } else if (node.isFinish) {
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-finish";
+      } else {
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node";
+      }
     }
-    console.log(nodes[0]);
 
-    /*document.getElementById(`node-${node.row}-${node.col}`).className =
-        "node node-shortest-path";*/
-
-    this.setState({ grid });
+    this.setState({ grid: newGrid });
   };
 
-  checkIsWall = node => {
-    if (node.isWall === true) {
-      return node.isWall === false;
-    }
-  };
-
-  getAllNodes = grid => {
+  /*getAllNodes = grid => {
     const nodes = [];
     for (const row of grid) {
       for (const node of row) {
@@ -110,7 +110,7 @@ export default class PathfindingVisualizer extends Component {
       }
     }
     return nodes;
-  };
+  };*/
 
   render() {
     console.log("1");
