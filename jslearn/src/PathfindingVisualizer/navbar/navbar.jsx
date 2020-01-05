@@ -8,11 +8,17 @@ class NavBar extends Component {
   render() {
     const { onVisualizeDijkstra, onReset } = this.props;
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar
+        style={{
+          backgroundColor: "#ffcc80",
+          font: "bold",
+          borderRadius: "0px 0px 25px 25px"
+        }}
+      >
         <Navbar.Brand href="#home">PathFinderrrz</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav>
             <Nav.Link onClick={onReset}>Reset</Nav.Link>
             <NavDropdown title="Visualise Algorithms" id="basic-nav-dropdown">
               <NavDropdown.Item
@@ -21,7 +27,6 @@ class NavBar extends Component {
               >
                 Visualize Dijkstra's Algorithm
               </NavDropdown.Item>{" "}
-              {/*onClick={this.props.onVisualizeDijkstra}*/}
               <NavDropdown.Item>Breadth-First Search</NavDropdown.Item>
               <NavDropdown.Item>Something</NavDropdown.Item>
               <NavDropdown.Divider />
