@@ -14,7 +14,7 @@ function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
   }
 }
 
-function animateShortestPath(nodesInShortestPathOrder) {
+export function animateShortestPath(nodesInShortestPathOrder) {
   if (nodesInShortestPathOrder.length !== 1) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
@@ -75,7 +75,7 @@ function updateUnvisitedNeighbors(node, grid) {
   }
 }
 
-function getUnvisitedNeighbors(node, grid) {
+export function getUnvisitedNeighbors(node, grid) {
   const neighbors = [];
   const { col, row } = node;
   if (row > 0) neighbors.push(grid[row - 1][col]);

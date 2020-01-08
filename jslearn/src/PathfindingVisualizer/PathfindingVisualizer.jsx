@@ -3,6 +3,8 @@ import Node from "./Node/Node";
 import NavBar from "./navbar/navbar";
 //import { getAllNodes } from "../algorithms/dijkstras";
 import { handleVisualizeDijkstra, getAllNodes } from "../algorithms/dijkstras";
+import { handleDepthFirstSearch } from "../algorithms/depthfirst";
+import { handleBreadthFirstSearch } from "../algorithms/breadthfirst";
 
 import "./PathfindingVisualizer.css";
 
@@ -62,7 +64,6 @@ export default class PathfindingVisualizer extends Component {
   };
 
   render() {
-    console.log("1");
     const { grid, mouseIsPressed } = this.state;
 
     return (
@@ -78,6 +79,24 @@ export default class PathfindingVisualizer extends Component {
             )
           }
           onReset={() => this.handleReset()}
+          onVisualizeDepthFirst={() =>
+            handleDepthFirstSearch(
+              grid,
+              START_NODE_ROW,
+              START_NODE_COL,
+              FINISH_NODE_ROW,
+              FINISH_NODE_COL
+            )
+          }
+          onVisualizeBreadthFirst={() =>
+            handleBreadthFirstSearch(
+              grid,
+              START_NODE_ROW,
+              START_NODE_COL,
+              FINISH_NODE_ROW,
+              FINISH_NODE_COL
+            )
+          }
         />
 
         <div className="grid">

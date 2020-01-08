@@ -6,7 +6,12 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 class NavBar extends Component {
   state = {};
   render() {
-    const { onVisualizeDijkstra, onReset } = this.props;
+    const {
+      onVisualizeDijkstra,
+      onReset,
+      onVisualizeDepthFirst,
+      onVisualizeBreadthFirst
+    } = this.props;
     return (
       <Navbar
         style={{
@@ -27,8 +32,12 @@ class NavBar extends Component {
               >
                 Visualize Dijkstra's Algorithm
               </NavDropdown.Item>{" "}
-              <NavDropdown.Item>Breadth-First Search</NavDropdown.Item>
-              <NavDropdown.Item>Something</NavDropdown.Item>
+              <NavDropdown.Item onClick={onVisualizeDepthFirst}>
+                Depth First Search
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={onVisualizeBreadthFirst}>
+                Breadth First Search
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>Reset</NavDropdown.Item>
             </NavDropdown>
