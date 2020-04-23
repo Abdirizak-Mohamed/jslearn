@@ -11,6 +11,7 @@ export function handleDepthFirstSearch(
   const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
   const visitedNodesInOrder = depthFirstSearch(grid, startNode, finishNode);
   animateDepthFirst(visitedNodesInOrder);
+  animateShortestPath(visitedNodesInOrder[1]);
 }
 
 function animateDepthFirst(visitedNodesInOrder) {
@@ -28,22 +29,48 @@ function animateDepthFirst(visitedNodesInOrder) {
       const node = visitedNodesInOrder[0][i];
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node node-visited";
-    }, 10 * i);
+    }, 500 * i);
   }
 }
+
+//function testDepthFirstSearch(){
+
+/*function testDepthFirstSearchHelper(currentNode,
+  finishNode,
+  visitedNodesInOrder,
+  grid,
+  nodesInPath){
+
+
+}*/
 
 function depthFirstSearch(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   const nodesInPath = [];
 
   let currentNode = startNode;
-  return depthFirstSearchHelper(
+
+  /* for (let node of grid){
+    if (!node.isVisited){
+      depthFirstSearchHelper(
+        currentNode,
+        finishNode,
+        visitedNodesInOrder,
+        grid,
+        nodesInPath
+      );
+    }
+  }*/
+
+  let answer = depthFirstSearchHelper(
     currentNode,
     finishNode,
     visitedNodesInOrder,
     grid,
     nodesInPath
   );
+  console.log(answer);
+  return answer;
 }
 
 function depthFirstSearchHelper(
@@ -53,27 +80,29 @@ function depthFirstSearchHelper(
   grid,
   nodesInPath
 ) {
+  console.log(currentNode.col, currentNode.row);
+  console.log(nodesInPath);
   let neighbours = getUnvisitedNeighbors(currentNode, grid);
   visitedNodesInOrder.push(currentNode);
-  nodesInPath.push(currentNode);
   currentNode.isVisited = true;
 
-  if (currentNode === finishNode) {
+  if (currentNode.isFinish) {
+    nodesInPath = visitedNodesInOrder;
+    console.log("c", nodesInPath);
+
+    return [visitedNodesInOrder, nodesInPath];
+  } else {
+    for (const neighbour of neighbours) {
+      return depthFirstSearchHelper(
+        neighbour,
+        finishNode,
+        visitedNodesInOrder,
+        grid,
+        nodesInPath
+      );
+    }
     return [visitedNodesInOrder, nodesInPath];
   }
-  if (neighbours.length === null) {
-    nodesInPath.pop(currentNode);
-  }
-  for (const neighbour of neighbours) {
-    depthFirstSearchHelper(
-      neighbour,
-      finishNode,
-      visitedNodesInOrder,
-      grid,
-      nodesInPath
-    );
-  }
-  return [visitedNodesInOrder, nodesInPath];
 }
 
 export function getUnvisitedNeighbors(node, grid) {
