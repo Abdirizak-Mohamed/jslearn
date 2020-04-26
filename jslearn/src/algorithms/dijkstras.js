@@ -21,7 +21,7 @@ export function animateShortestPath(nodesInShortestPathOrder) {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, 100 * i);
+      }, 30 * i);
     }
   }
 }

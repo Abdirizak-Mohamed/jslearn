@@ -30,31 +30,26 @@ function animateBreadthFirst(visitedNodesInOrder) {
 }
 
 function breadthFirstSearch(grid, startNode, finishNode) {
-  const visitedNodesInOrder = [];
+  const queue = [];
   const seenNodes = [];
+
   let currentNode = startNode;
+  queue.unshift(startNode);
 
-  visitedNodesInOrder.unshift(startNode);
-  let counter = 0;
-  while (visitedNodesInOrder.length) {
-    currentNode = visitedNodesInOrder.pop();
-    counter++;
+  while (queue.length) {
+    currentNode = queue.pop();
 
-    if (seenNodes.includes(currentNode) === false) {
+    if (!seenNodes.includes(currentNode)) {
       seenNodes.push(currentNode);
       currentNode.isVisited = true;
     }
     let neighbours = getUnvisitedNeighbors(currentNode, grid);
     for (let neighbour of neighbours) {
-      visitedNodesInOrder.unshift(neighbour);
+      queue.unshift(neighbour);
     }
     if (currentNode === finishNode) {
-      console.log(counter);
       return seenNodes;
     }
   }
-  console.log(currentNode);
-  console.log(visitedNodesInOrder);
-  console.log("shi");
   return seenNodes;
 }
