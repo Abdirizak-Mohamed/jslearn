@@ -1,8 +1,50 @@
+function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+    if (i === visitedNodesInOrder.length) {
+      setTimeout(() => {
+        animateShortestPath(nodesInShortestPathOrder);
+      }, 10 * i);
+      return;
+    }
+    setTimeout(() => {
+      const node = visitedNodesInOrder[i];
+      document.getElementById(`node-${node.row}-${node.col}`).className =
+        "node node-visited";
+    }, 10 * i);
+  }
+}
+
+export function animateShortestPath(nodesInShortestPathOrder) {
+  if (nodesInShortestPathOrder.length !== 1) {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-shortest-path";
+      }, 100 * i);
+    }
+  }
+}
+
+export function handleVisualizeDijkstra(
+  grid,
+  START_NODE_ROW,
+  START_NODE_COL,
+  FINISH_NODE_ROW,
+  FINISH_NODE_COL
+) {
+  const startNode = grid[START_NODE_ROW][START_NODE_COL];
+  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+  const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+}
+
 // Performs Dijkstra's algorithm; returns *all* nodes in the order
 // in which they were visited. Also makes nodes point back to their
 // previous node, effectively allowing us to compute the shortest path
 // by backtracking from the finish node.
-export function dijkstra(grid, startNode, finishNode) {
+function dijkstra(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   const unvisitedNodes = getAllNodes(grid);
@@ -33,7 +75,7 @@ function updateUnvisitedNeighbors(node, grid) {
   }
 }
 
-function getUnvisitedNeighbors(node, grid) {
+export function getUnvisitedNeighbors(node, grid) {
   const neighbors = [];
   const { col, row } = node;
   if (row > 0) neighbors.push(grid[row - 1][col]);
@@ -43,7 +85,7 @@ function getUnvisitedNeighbors(node, grid) {
   return neighbors.filter(neighbor => !neighbor.isVisited);
 }
 
-function getAllNodes(grid) {
+export function getAllNodes(grid) {
   const nodes = [];
   for (const row of grid) {
     for (const node of row) {
