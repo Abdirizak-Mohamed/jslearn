@@ -9,4 +9,4 @@ It was created using the React frontend framework and allows users to visualise 
 3. Npm start
 
 #Demo
-![](Abdi'sFinance.gif)
+![](PathFinderzz.gif)
